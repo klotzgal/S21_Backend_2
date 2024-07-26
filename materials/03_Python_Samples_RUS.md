@@ -1,7 +1,7 @@
 #### **Python**
-The most popular frameworks for implementing HTTP APIs in Python are Flask and Django.
+Самые популярные фреймворки для реализации HTTP API на языке Python - это Flask и Django.
 
-Flask is a microframework for creating applications and REST APIs. Flask's main task is to handle HTTP requests and redirect them to the necessary function in the application. Here is an example of a Flask application for a REST API.
+Flask - микрофреймворк для создания приложений и REST API. Главная задача Flask - обрабатывать HTTP запросы и перенаправлять их на необходимую функцию в приложении. Приведем пример Flask приложения для REST API.
 
 ```python
 # app.py
@@ -28,9 +28,9 @@ def add_model():
     return model, 201
 ```
 
-Now let's take a look at Django, another popular framework for creating a REST API application.
+Теперь посмотрим на Django - ещё один популярный фреймворк для создания REST API приложения.
 
-First you need to create a Django project, then add the modules you use to settings.py.
+Изначально требуется создать Django проект, затем добавить в settings.py используемые модули.
 
 ```python
 # examplemodelsapi/settings.py
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Add models.
+Добавляем модели.
 
 ```python
 # examplemodels/models.py
@@ -57,9 +57,9 @@ class ExampleModel(models.Model):
     exampleModelAttr = model.CharField(max_length=100)
 ```
 
-Don't forget to apply migrations: `python manage.py makemigrations`, `python manage.py migrate`.
+Не забываем накатывать миграции: `python manage.py makemigrations`, `python manage.py migrate`.
 
-Write serializers.
+Пишем сериализаторы.
 
 ```python
 # examplemodels/serializers.py
@@ -72,7 +72,7 @@ class ExampleModelSerializer(serializers.ModelSerializer):
         fields = ["id", "exampleModelAttr"]
 ```
 
-Let's add the view code (something we haven't done in previous languages). This class generates the views needed to manage the data of the ExampleModel class.
+Добавим код представления (то, чего мы не делали в прошлых языках). Этот класс генерирует представления, необходимые для управления данными класса ExampleModel.
 
 ```python
 from rest_framework import viewsets
@@ -85,7 +85,7 @@ class ExampleModelViewSet(viewsets.ModelViewSet):
     queryset = ExampleModel.objects.all()
 ```
 
-Now update urls.py
+Теперь обновим urls.py
 
 ```python
 # examplemodels/urls.py
@@ -113,4 +113,4 @@ urlpatterns = [
 ]
 ```
 
-Yay! It's ready to go!: `python manage.py runserver`.
+Ура! Можно запускать: `python manage.py runserver`.

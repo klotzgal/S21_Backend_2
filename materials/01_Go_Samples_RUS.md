@@ -1,5 +1,5 @@
 #### **Go**
-We start by describing models. Go doesn't have the usual OOP classes and objects, so we describe structures.
+Начинаем с описания моделей. В Go нет привычных в ООП классов и объектов, поэтому описываем структуры.
 
 ```go
 type ExampleModel {
@@ -8,7 +8,7 @@ type ExampleModel {
 }
 ```
 
-Do not forget to import all the necessary packages.
+Не забудем импортировать все нужные пакеты.
 
 ```go
 package main
@@ -23,7 +23,7 @@ import (
 )
 ```
 
-Now let's describe the methods that handle HTTP requests. Let it be the getModels method, which gets all the models. This method receives ResponseWriter and pointer to Request.
+Теперь опишем методы, обрабатывающие HTTP запросы. Пусть это будет метод getModels, который получает все модели. На вход методу подаются ResponseWriter и указатель на Request.
 
 ```go
 var models []models
@@ -34,7 +34,7 @@ func getModels(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Now let's look at the entry point.
+Рассмотрим теперь точку входа.
 
 ```go
 func main() {

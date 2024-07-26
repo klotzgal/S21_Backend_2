@@ -1,5 +1,7 @@
 # REST API
 
+💡 [Tap here](https://new.oprosso.net/p/4cb31ec3f47a4596bc758ea1861fb624) **to leave your feedback on the project**. It's anonymous and will help our team make your educational experience better. We recommend completing the survey immediately after the project.
+
 ## Contents
 
 [[_TOC_]]
@@ -9,80 +11,80 @@
 
 ### Introduction
 
-Привет! В этом блоке мы посмотрим на то, что такое RESTful API и как оно разрабатывается на самых популярных языках. В конце тебя ждет практическое задание по проектированию API для собственного магазина!
+Hello! In this block you'll learn about RESTful API and how it's developed in the most popular languages. At the end, you'll get a practical task on how to design an API for your own store!
 
 ## Chapter II
 
 ### REST API
-Начнем с простого: расшифруем аббревиатуру. **RE**presentational **S**tate **T**ransfer (REST) — это передача состояния представления. Технология позволяет получать и модифицировать данные и состояния удаленных приложений, передавая HTTP-запросы через интернет или любую другую сеть.
+Let's start by deciphering the acronym. REST —  **RE**presentational **S**tate **T**ransfer. This technology allows you to retrieve and modify data and states of remote applications by passing HTTP requests over the Internet or any other network.
 
-Если проще, то REST API — это когда серверное приложение дает доступ к своим данным клиентскому приложению по определенному URL.
+Simply put, a REST API is when a server application gives a client application access to its data through a specific URL.
 
-REST API позволяет использовать для общения между программами протокол HTTP (зашифрованная версия — HTTPS), с помощью которого мы получаем и отправляем большую часть информации в интернете.
+The REST API allows you to use the HTTP protocol (the encrypted version is HTTPS) to communicate between programs, which is how we receive and send most information on the Internet.
 
-Вбивая в адресную строку URL-адрес http://website.com/something, мы на самом деле идем на сервер website.com и запрашиваем ресурс под названием /something. «Пойди вот туда, принеси мне вот то» — и есть HTTP-запрос. Теперь представим, что по адресу website.com работает программа, к которой хочет обратиться другая программа. Чтобы программа понимала, какие именно функции нужны, используют различные адреса.
+When we type the URL http://website.com/something into the address bar, we are actually going to the website.com server and requesting a resource called /something. "Go there, get me that" is the HTTP request. Now suppose a program is running on website.com and another program wants to access it. In order for the program to understand what functions it needs, different addresses are used.
 
-Основа работы REST API - Методы [HTTP](https://www.rfc-editor.org/rfc/rfc2616). 
-Классические методы HTTP:
-- GET - Клиенты используют GET для доступа к ресурсам, расположенным на сервере по указанному адресу;
-- POST - Используется для отправки данных на сервер;
-- PUT - Для создания или обновления существующего ресурса целиком;
-- PATCH - Для обновления части существующего ресурса;
-- DELETE - Для удаления ресурса.
+The foundation of the REST API is [HTTP Methods](https://www.rfc-editor.org/rfc/rfc2616). 
+Standard HTTP methods:
+- GET — clients use GET to access resources located on the server at the specified address;
+- POST — used to send data to the server;
+- PUT — used to completely create or update an existing resource;
+- PUT — used to update a portion of an existing resource;
+- DELETE — used to delete a resource.
 
-Итак, имеется 5 функций, с помощью которых некоторая программа может получить данные ресурса. На деле существуют также функции HEAD, OPTIONS и т.д.
+So, there are 5 functions that any program can use to get resource data. In fact, there are also functions like HEAD, OPTIONS, etc.
 
-REST API - самое популярное решение для организации взаимодействия между различными программами. Оно применяется для связи мобильных приложений с серверными, для построения микросервисных приложений или предоставления доступа к программам сторонних разработчиков.
+REST API is the most popular solution to organize interaction between different programs. It is used to connect mobile applications with server applications, to build microservice applications or to provide access to third-party programs.
 
-Важно заметить, что каждый REST API запрос сообщает о результатах работы числовыми кодами (так называемыми HTTP-статусами). Помнишь, как в учебных программах приходилось возвращать какой-либо код (например, 0 - успех, 1 - ошибка и т.д.)? Здесь идея аналогичная.
+It's important to note that each REST API request returns its results in numeric codes (called HTTP statuses). Remember when you had to return some code in training programs (e.g. 0 for success, 1 for error, etc.)? Here we have a similar idea.
 
 ![linux_network](misc/images/http_responses.png)
 
-С помощью REST API можно обмениваться не только текстовой информацией, но и передавать данные в специальных форматах: XML, JSON и т.д.
+Using the REST API you can exchange not only textual information, but also send data in special formats: XML, JSON, etc.
 
-Да, существуют и другие архитектуры API-систем (JSON-PRC, XML-RPC, GraphQL). Однако REST до сих пор остается самым востребованным инструментом для построения взаимодействия между удаленными приложениями.
+Yes, there are other API system architectures (JSON-PRC, XML-RPC, GraphQL). However, REST is still the most popular tool for building interaction between remote applications.
 
-#### Как работает REST?
-Базовый принцип работы RESTful API совпадает с принципом работы в Интернете. Клиент связывается с сервером с помощью API, когда ему требуется какой-либо ресурс. Разработчики описывают принцип использования REST API клиентом в документации на API серверного приложения. Ниже представлены основные этапы запроса REST API:
-- Клиент отправляет запрос на сервер. Руководствуясь документацией API, клиент форматирует запрос таким образом, чтобы его понимал сервер.
-- Сервер аутентифицирует клиента и подтверждает, что клиент имеет право сделать этот запрос.
-- Сервер получает запрос и внутренне обрабатывает его.
-- Сервер возвращает ответ клиенту. Ответ содержит информацию, которая сообщает клиенту, был ли запрос успешным. Также запрос включает сведения, запрошенные клиентом.
-- Сведения о запросе и ответе REST API могут немного различаться в зависимости от того, как разработчики проектируют API.
+#### How does REST work??
+The basic principle of the RESTful API is the same as the Internet. The client communicates with the server through the API when it needs a resource. Developers describe how the REST API is used by the client in the API documentation for the server application. The following are the basic steps of a REST API request:
+- The client sends a request to the server. Guided by the API documentation, the client formats the request so that the server understands it.
+- The server authenticates the client and confirms that the client has the right to make the request.
+- The server receives the request and processes it internally.
+- The server sends the response back to the client. The response contains information that tells the client whether the request was successful. The request also contains information requested by the client.
+- REST API request and response information can vary slightly depending on how developers design the API.
 
-### RESTful система - это как?
-Чтобы распределенная система считалась RESTful (сконструированной по [REST](https://restfulapi.net/)), необходимо, чтобы она удовлетворяла ряду критериев.
+### What is a RESTful system?
+For a distributed system to be considered RESTful (designed according to [REST](https://restfulapi.net/)), it must meet a number of criteria.
 
-- **Client-Server.** Система должна быть разделена на клиентские и серверные части. Разделение позволит «отвязать» клиентов от конкретного способа работы сервера, поэтому мобильность кода улучшается.
+- **Client-Server.** The system should be separated into client and server parts. This separation allows the clients to be "decoupled" from the specific way the server works, thus improving the mobility of the code.
 
-- **Stateless.** Сервер не должен знать ничего о состояниях клиентов. Запросы должны содержать всю достаточную информацию для его обработки.
+- **Stateless.** The server does not need to know anything about client states. Requests need only contain enough information to be handled.
 
-- **Cache.** Каждый ответ должен быть помечен, является он кешируемым или нет. Таким образом исключается повторное использование клиентами устаревших данных.
+- **Cache.** Each response must be marked as cacheable or not. This prevents clients from reusing old data.
 
-- **Uniform interface.** Единый интерфейс определяет интерфейс (набор доступных функций) между клиентами и серверами. Это упрощает архитектуру, позволяет развиваться её частям независимо.
+- **Uniform interface.** A uniform interface defines the interface (the set of available functions) between clients and servers. This simplifies the architecture and allows its parts to evolve independently.
 
-- **Layered system.** Допускается разделять систему на иерархию слоёв, но с условием, что каждый компонент может видеть компоненты только непосредственно следующего слоя.
+- **Layered System.** It is allowed to divide the system into a hierarchy of layers, but with the condition that each component can only see the components of the next layer.
 
 ### Swagger & Open API 3.0
-Изначально «Swagger» был оригинальным названием спецификации OpenAPI, но позже спецификация была переименована в «OpenAPI» для того, чтобы подчеркнуть открытую природу этого стандарта.
+"Swagger" was the original name of the OpenAPI specification, but the specification was later changed to "OpenAPI" to emphasize the open nature of the standard.
 
-Спецификация OpenAPI определяет стандарт, представляющий из себя интерфейс (RESTful) HTTP API, который позволяет и людям, и компьютерам распознавать и понимать возможности сервиса без доступа к исходному коду или документации.
+The OpenAPI specification defines a standard that is a (RESTful) HTTP API that allows both humans and computers to discover and understand the capabilities of a service without access to source code or documentation.
 
-Документ спецификации OpenAPI - это Swagger-файл в формате YAML (или json), который создается для описания API.
+The OpenAPI specification document is a Swagger file in YAML (or json) format created to describe the API.
 
-В целом документ состоит из следующих частей:
+In general, the document consists of the following parts:
 
 - openapi
 
-    В объекте openapi указывается версия спецификации (например, в нашем случае, это 3.0.0). Пример:
+   The openapi object specifies the version of the specification (for example, in our case it is 3.0.0). Example:
     ```yaml
     openapi: "3.0.2"
     ```
-    Кстати, написать свой документ можно в официальном [онлайн-редакторе.](https://swagger.io/tools/swagger-editor/)
+    By the way, you can write your document in the official [online editor.](https://swagger.io/tools/swagger-editor/)
 
 - info
 
-    Данный объект содержит основную информацию об API (например, заголовок, версия, ссылка на лицензию и т.д.) Рассмотрим пример:
+    This object contains basic information about the API (e.g. header, version, license link, etc.) Let's look at the example:
     ```yaml
     openapi: "3.0.2"
     info:
@@ -101,7 +103,7 @@ REST API - самое популярное решение для организ�
 
 - servers
 
-    Данный объект позволяет указать базовый путь, используемый в запросах API. Базовый путь - часть URL, которая находится перед конечной точкой. Конечные точки будут рассмотрены в объекте path. Рассмотрим пример servers.
+    This object allows you to specify the base path used in API requests. The base path is the part of the URL that comes before the endpoint. Endpoints will be considered in the path object. Let's look at the example of servers.
 
     ```yaml
     servers:
@@ -111,7 +113,7 @@ REST API - самое популярное решение для организ�
 
 - paths
 
-    Объект path содержит информацию о конечных точках. Каждый элемент в объекте path содержит объект operations (методы GET, POST, PUT, DELETE). Скелет одной конечной точки соединения выглядит следующим образом.
+    The path object contains information about endpoints. Each element in path object contains operations object (GET, POST, PUT, DELETE methods). The structure of a single connection endpoint looks like this.
 
     ```yaml
     paths:
@@ -130,9 +132,9 @@ REST API - самое популярное решение для организ�
           requestBody:
           callbacks:
     ```
-    Не все поля являются обязательными. Например, если у запроса отсутствуют параметры тела запроса, то нет необходимости включать объект requestBody.
+    Not all fields are mandatory. For example, if a request has no request body parameters, it is not necessary to include the requestBody object.
 
-    Параметры запроса содержит массив параметров со свойственными им объектами. 
+    Request parameters contain an array of parameters with their objects. 
 
     ```yaml
     parameters:
@@ -149,7 +151,7 @@ REST API - самое популярное решение для организ�
       ...
     ```
     
-    Рассмотрим также пример объекта responses.
+    See also the example of the responses object.
 
     ```yaml
     responses:
@@ -177,59 +179,57 @@ REST API - самое популярное решение для организ�
 
 - components
 
-    В данном объекте сохраняются переиспользуемые определения, которые могут появляться в нескольких местах в документе спецификации.
+    This object contains reused definitions that can appear in several places in the specification document.
 
 - security
 
-    Объект security указывает протокол безопасности или авторизации, используемый при отправке запросов.
+    The security object specifies the security or authorization protocol used to send requests.
 
-Кроме того, существуют объекты tags и externalDocs.
+Besides, there are tags and externalDocs objects.
 
 #### **Swagger UI**
 
-Swagger UI предоставляет фреймворк, который читает спецификацию OpenAPI и создает веб-страницу с интерактивной документацией, в которой можно посылать запросы в реальном времени.
+Swagger UI provides a framework that reads the OpenAPI specification and creates a web page with interactive documentation where requests can be sent in real time.
 
+The official [swagger specification](https://swagger.io/specification/).
 
-Официальная [спецификация swagger](https://swagger.io/specification/).
+It is important to note that there are two approaches to writing documentation. The first approach is to write documentation almost automatically on the basis of the code. The second is to write it separately from the code.
 
-Важно отметить, что существует два подхода к написанию документации. Первый - документация практически автоматически пишется на основе кода. Второй - документация пишется отдельно от кода.
+**In the task you will write comments in the code, which will be the basis for the OpenAPI specification, i.e. use the 1 approach.**
 
-**В задании ты будешь писать комментарии в коде, на основе которых будет генерироваться OpenAPI спецификация, т.е. использовать 1 подход.**
+![Swagger example](/misc/images/swagger.png)
 
-![Пример swagger](/misc/images/swagger.png)
+### Implementation of the HTTP API in modern programming languages
+You can look at examples based on which you can implement HTTP API in the materials.
 
-### Реализация HTTP API в современных языках программирования
-Посмотреть на примеры, основываясь на которые можно реализовать HTTP API, можно в папке materials.
+### About Postgres
+You will need a DBMS (database management system) to implement your project. We recommend that you use Postgres. What is Postgres?
 
-### Про Postgres
-Для реализации проекта тебе понадобится СУБД (система управления базами данных). Мы предлагаем тебе использовать Postgres. Что это?
+PostgreSQL is an open source object-relational database management system. Because it is an open source project, it is constantly being improved and supports many extensions. New versions of the database are released on a regular basis. Both UNIX-like systems and Windows systems are supported.
 
-PostgreSQL - свободная (open source) объекто-реляционная система управления базами данных. Поскольку это проект с открытым кодом, он постоянно улучшается и поддерживает множество расширений. Новые версии СУБД выходят регулярно. Поддерживаются как UNIX-подобные системы, так и Windows.
+You can download PostgreSQL from the [official website](https://www.postgresql.org/download/). If you download the desktop version, you will also get PgAdmin, a client for working with postgres.
 
-Скачать PostgreSQL можно с [официального сайта](https://www.postgresql.org/download/). Если ты скачиваешь desktop-версию, тебе также установится PgAdmin - клиент для работы с postgres.
+It is also possible to run postgres in a docker container and access it from localhost after configuring the ports.
 
-Кроме того, postgres можно запустить в докер-контейнере и, настроив порты, обращаться к нему через localhost.
-
-Как использовать postgres в своих приложениях? Для этого необходимо указать строку подключения к БД (connection string), и, в зависимости от языка, использовать библиотеки для работы с БД:
-- Python - peewee, psycopg2
-- C# - EntityFramework
-- Go - pq
-- Java - pgJDBC
+How do you use postgres in your applications? You need to specify a connection string and, depending on the language, use libraries to work with the database:
+- Python — peewee, psycopg2;
+- C# — EntityFramework;
+- Go — pq;
+- Java — pgJDBC.
 
 ## Chapter III
-Так-так, пора делать что-то своими руками.
+Well, well, it's time to do things on your own.
 
-### ShopAPI
-Итак, ты решил открыть свой магазин. Денег на заказ сайта нет, поэтому ты решил написать всё сам. Правильно написанный бэкенд позволит позже сделать веб-сайт, desktop, и даже мобильные приложения. И Все они будут получать данные из нашей REST API. Не забывай про внешние ключи. Изучи разницу между DAL (Data Access Layer) и DTL (Data Transfer Layer) объектами.
+### StoreAPI
+So you've decided to open your own store. You don't have money to buy a website, so you decide to write everything yourself. A properly written backend will allow you to make a website, desktop, and even mobile applications later. And they will all get their data from our REST API. Don't forget about foreign keys. Learn the difference between DAL (Data Access Layer) and DTL (Data Transfer Layer) objects.
 
-**Тематика магазина**: магазин бытовой техники.
+**Store type**: appliance store.
 
-**Обрати внимание!** В БД мы реализуем реляционную модель! Внимательно изучи модели и спроектируй модель БД в соответствии с нормальными формами. О нормальных формах тебе предстоит узнать самостоятельно!
+** Pay attention! ** We implement relational model in the database! Study the models carefully and design the database model according to normal forms. You will have to learn about normal forms by yourself!
 
-Имеются следующие сущности:
+The entities are:
 ```
-// Клиент
-client
+// Client
 {
     id
     client_name
@@ -241,22 +241,20 @@ client
 }
 ```
 ```
-// Товар
-product
+// Product
 {
     id
     name
     category
     price
-    available_stock // число закупленных экземпляров товара
-    last_update_date // число последней закупки
+    available_stock // the number of products purchased
+    last_update_date // date of last purchase
     supplier_id
     image_id: UUID
 }
 ```
 ```
-// Поставщики
-supplier
+// Suppliers
 {
     id
     name
@@ -265,8 +263,7 @@ supplier
 }
 ```
 ```
-// Изображения товаров
-images
+// Images
 {
     id : UUID
     image: bytea
@@ -274,9 +271,7 @@ images
 ```
 
 ```
-// Адреса
-
-address 
+// Addresses
 {
     id
     country
@@ -285,81 +280,76 @@ address
 }
 
 ```
-Возможно выделение дополнительных сущностей.
+It is possible to add additional entities.
 
-Описанные выше сущности должны быть реализованы в реляционной БД PostgreSQL. По полученным таблицам, в проекте необходимо использовать DAO (Data Access Objects) объекты, для получения данных в репозиториях. 
+The entities described above must be implemented in the PostgreSQL relational database. According to the resulting tables, you must use DAO (Data Access Objects) objects in the project to retrieve data in the repositories. 
 
-**Важно** - Тебе необходимо подобрать оптимальный тип в СУБД для хранения данных (Для каждого поля столбца)! 
+**Important**: You need to pick the optimal type in the DBMS to store the data (For each column field)! 
 
-**Подсказка** - Для уникальных идентификаторов использовать тип UUID/GUID.
+**Tip**: For unique identifiers use UUID/GUID type.
 
+You need to implement popular types of HTTP requests (GET, POST, PUT, DELETE, PATCH).
 
-Необходимо реализовать популярные виды HTTP запросов (GET, POST, PUT, DELETE, PATCH).
-
-- Для клиентов:
+- For clients:
     
-    1) Добавление клиента (на вход подается json, соответствующей структуре, описанной сверху).
+    1. Add a client (json is input, corresponding to the structure described above).
 
-    2) Удаление клиента (по его идентификатору)
+    2. Delete a client (by its identifier).
 
-    3) Получение клиентов по имени и фамилии (параметры - имя и фамилия)
+    3. Get clients by first and last name (parameters — first and last name).
 
-    4) Получение всех клиентов (В данном запросе необходимо предусмотреть опциональные параметры пагинации в строке запроса: limit и offset). В случае отсутствия эти параметров возвращать весь список.
+    4. Get all clients (In this request it is necessary to provide optional pagination parameters in the request line: limit and offset.). If these parameters are missing, return the whole list.
 
-    5) Изменение адреса клиента (параметры: Id и новый адрес в виде json в соответствии с выше описанным форматом)
+    5. Change the client's address (parameters: Id and new address as json according to the format described above).
 
-- Для товаров:
+- For products:
 
-    1) Добавление товара (на вход подается json, соответствующей структуре, описанной сверху).
+    1. Add a product (json is input, corresponding to the structure described above).
 
-    2) Уменьшение количества товара (на вход запросу подается id товара и на сколько уменьшить)
+    2. Decrease the quantity of the product (the id of the product and how much to decrease is given as an input).
 
-    3) Получение товара по id
+    3. Get the product by id.
 
-    4) Получение всех доступных товаров
+    4. Getting all the available products.
 
-    5) Удаление товара по id
+    5. Deleting a product by id.
 
-- Для поставщиков:
+- For suppliers:
 
-    1) Добавление поставщика (на вход подается json, соответствующей структуре, описанной сверху).
+    1. Add a supplier (json is input, corresponding to the structure described above).
 
-    2) Изменение адреса поставщика (параметры: Id и новый адрес в виде json в соответствии с выше описанным форматом)
+    2. Change the supplier's address (parameters: Id and new address as json according to the format described above).
 
-    3) Удаление поставщика по id
+    3. Delete a supplier by id.
 
-    4) Получение всех поставщиков
+    4. Get all suppliers.
 
-    5) Получение поставщика по id
+    5. Get a supplier by id.
 
-- Для изображений:
+- For images:
 
-    1) добавление изображения (на вход подается byte array изображения и id товара).
+    1. Add an image (The byte array of the image and the product id is input).
 
-    2) Изменение изображения (на вход подается id изображения и новая строка для замены)
+    2. Change the image (the image id and a new line to replace is input).
 
-    3) Удаление изображения по id изображения
-
-    4) Получение изображения конкретного товара (по id товара) 
+    3. Delete an image by image id.
+ 
+    4. Get an image of a specific product (by product id).
    
-    5) Получение изображения по id изображения
+    5. Get an image by image id.
 
-Методы, возвращающие изображение, должны возвращать изображение (массив байт) с заголовком «application/octet-stream». При этом файл должен автоматически загружаться.
+The methods that return an image must return an image (array of bytes) with the "application/octet-stream" header. The file must be loaded automatically.
 
+For each of the requests described above, if the data in the body is provided to the input, it is necessary to validate the data and if validation was unsuccessful — give 400 error code with the message.
 
-Для каждого из описанных запросов выше, если предусмотрено получение данных в теле на вход, необходимо провести валидацию данных и в случае, если валидация прошла неуспешно - выдавать 400 код ошибки с текстом сообщения.
+If the request includes data update or receipt by Id, it is necessary to return error code 404 with the message in case of missing data.
 
-Если запрос предусматривает обновление данных или получение по Id, необходимо в случае отсутствия данных возвращать код ошибки 404 с текстом сообщения.
+If the request involves returning a list of data, an empty list is returned if there is no data.
 
-
-Если запрос предусматривает возврат списка данных, то в случае отсутствия данных возвращается пустой список.
-
-Обязательные требования: 
-- Полное покрытие методов спецификацией OpenAPI, наличие swagger комментариев и примеров объектов. Swagger спецификация должна отдаваться по пути 
+Mandatory requirements: 
+- Full coverage of methods with OpenAPI specification, presence of swagger comments and example objects. The Swagger specification should be given at: 
   >http://localhost:{YourPort}/swagger/index.html
-- Для коммуникации с API необходимо использовать DTO (Data Transfer Objects). Для преобразования одной модели в другую используй мапперы. Путь к методам контроллеров должен начинаться с приставки 
+- You have to use DTOs (Data Transfer Objects) to communicate with the API. To convert one model to another, use mappers. The path to the controller methods must start with the prefix: 
   >/api/v1/...
-- API обязательно должен быть спроектирован по [RESTFUL](https://restfulapi.net/) методологии
-- Использование БД для хранения данных, реализация паттерна **Repository** в качестве прослойки доступа к данным.
-
-💡 [Нажми сюда](https://forms.yandex.ru/cloud/647052c5f47e7312e31e762d/), **чтобы поделиться с нами обратной связью на этот проект**. Это анонимно и поможет команде Продукта сделать твоё обучение лучше.
+- The API must necessarily be designed according to [RESTFUL](https://restfulapi.net/) methodology.
+- Use the database to store data, implementing the **Repository** pattern as the data access layer.

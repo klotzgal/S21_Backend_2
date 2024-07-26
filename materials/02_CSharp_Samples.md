@@ -1,7 +1,6 @@
 #### **C#**
-Для написания HTTP API на C# используется фреймворк ASP.NET. Давай сначала рассмотрим, что такое модели и контроллеры.
-
-**Модель** - некоторая формализация понятия, которое используется в системе. Модель несёт в себе данные в виде атрибутов, при этом модель никак не связана с UI. За данные модель отвечает самостоятельно (проводит валидацию).
+The ASP.NET framework is used to write the HTTP API in C#. Let's first look at models and controllers.
+A **Model** is some formalization of a concept that is used in the system. The model contains data in the form of attributes, and the model is in no way connected to the UI. The model is responsible for the data on its own (it performs validation).
 
 ```csharp
 public abstract class BaseModel
@@ -17,7 +16,7 @@ public class ExampleModel : BaseModel
 }
 ```
 
-**Репозитории** используются для работы с Базами Данных (см. паттерн "Репозиторий"). На уровне репозитория реализуются CRUD операции над данными (CREATE, READ, UPDATE, DELETE).
+**Repositories** are used to work with databases (see Repository pattern). The repository level implements CRUD operations on data (CREATE, READ, UPDATE, DELETE).
 
 ```csharp
 public interface IExampleRepository
@@ -33,12 +32,12 @@ public interface IExampleRepository
 ```csharp
 public class ExampleRepository : IExampleRepository
 {
-    // реализация интерфейса
+    // interface implementation
     ...
 }
 ```
 
-**Сервисы** используются для реализации бизнес-логики приложений.
+**Services** are used to implement application business logic.
 
 ```csharp
 public interface IExampleService
@@ -56,15 +55,15 @@ public class ExampleService : IExampleService
     
     public Task DoExampleBusiness()
     {
-        // реализация бизнес-логики
+        // business logic implementation
         ...
     }
 }
 ```
 
-Проектировать систему рекомендуется соблюдая принципы SOLID. Кроме того, на уровне фреймворка реализован паттерн Dependency Injection, позволяющий "прокидывать" зависимости в компоненты системы.
+It is recommended to design the system following SOLID principles. In addition, the Dependency Injection pattern is implemented at the framework level, which allows you to "inject" dependencies to system components.
 
-**Контроллер** - посредник между бизнес-логикой и клиентской частью приложения. Контроллер обрабатывает запросы по сети, события от пользователей, отвечает за обновление данных и является точкой входа в обработку запроса.
+**Controller** is an intermediary between the business logic and the client side of the application. The controller handles network requests, user events, is responsible for updating data, and is the entry point into request processing.
 
 ```csharp
 [ApiController]

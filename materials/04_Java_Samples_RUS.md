@@ -1,5 +1,5 @@
 #### **Java**
-Creating an HTTP API application in Java also starts with the model description. We will use the Spring Boot library.
+Создание приложения HTTP API в Java начинается так же с описания моделей. Будем использовать библиотеку Spring Boot.
 
 ```java
 public class ExampleModel {
@@ -24,7 +24,7 @@ public class ExampleModel {
 }
 ```
 
-Now let's describe the interface and its implementation - the service.
+Теперь опишем интерфейс и его реализацию - сервис.
 
 ```java
 public interface ExampleService {
@@ -53,7 +53,7 @@ public class ExampleServiceImpl implements ExampleService {
 }
 ```
 
-Now let's write a controller.
+Теперь давай напишем контроллер.
 
 ```java
 @RestController
@@ -67,9 +67,9 @@ public class ExampleController {
 }
 ```
 
-Autowired indicates that Dependency Injection is used.
+Autowired указывает на то, что используется внедрение зависимостей (Dependency Injection).
 
-Now let's write the controller methods.
+Теперь напишем методы контроллера.
 
 ```java
 @PostMapping(value = "/model")
@@ -79,4 +79,4 @@ public ReponseEntity<?> create(@RequestBody ExampleModel model) {
 }
 ```
 
-PostMapping indicates that POST request can be sent to /model, which will be handled by this method.
+PostMapping указывает на то, что по адресу /model можно послать POST-запрос, который будет обработан данным методом.
