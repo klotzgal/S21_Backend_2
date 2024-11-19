@@ -29,7 +29,7 @@ Standard HTTP methods:
 - GET — clients use GET to access resources located on the server at the specified address;
 - POST — used to send data to the server;
 - PUT — used to completely create or update an existing resource;
-- PUT — used to update a portion of an existing resource;
+- PATCH — used to update a portion of an existing resource;
 - DELETE — used to delete a resource.
 
 So, there are 5 functions that any program can use to get resource data. In fact, there are also functions like HEAD, OPTIONS, etc.
@@ -38,7 +38,7 @@ REST API is the most popular solution to organize interaction between different 
 
 It's important to note that each REST API request returns its results in numeric codes (called HTTP statuses). Remember when you had to return some code in training programs (e.g. 0 for success, 1 for error, etc.)? Here we have a similar idea.
 
-![linux_network](misc/images/http_responses.png)
+![linux_network](./misc/images/http_responses.png)
 
 Using the REST API you can exchange not only textual information, but also send data in special formats: XML, JSON, etc.
 
@@ -197,7 +197,7 @@ It is important to note that there are two approaches to writing documentation. 
 
 **In the task you will write comments in the code, which will be the basis for the OpenAPI specification, i.e. use the 1 approach.**
 
-![Swagger example](/misc/images/swagger.png)
+![Swagger example](./misc/images/swagger.png)
 
 ### Implementation of the HTTP API in modern programming languages
 You can look at examples based on which you can implement HTTP API in the materials.
