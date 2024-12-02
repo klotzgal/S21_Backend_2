@@ -38,7 +38,7 @@ REST API is the most popular solution to organize interaction between different 
 
 It's important to note that each REST API request returns its results in numeric codes (called HTTP statuses). Remember when you had to return some code in training programs (e.g. 0 for success, 1 for error, etc.)? Here we have a similar idea.
 
-![linux_network](./misc/images/http_responses.png)
+![linux_network](./misc/images/responses.png)
 
 Using the REST API you can exchange not only textual information, but also send data in special formats: XML, JSON, etc.
 
