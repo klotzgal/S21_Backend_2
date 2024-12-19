@@ -27,10 +27,8 @@ target_metadata.schema = None
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-url: URL = settings.SQLALCHEMY_DATABASE_URI
-url: str = url.render_as_string(hide_password=False)
-url: str = url.replace('%', '%%') + '&async_fallback=true'
-config.set_main_option('sqlalchemy.url', url)
+url = settings.SQLALCHEMY_DATABASE_URI.render_as_string(hide_password=False)
+config.set_main_option('sqlalchemy.url', url + '?async_fallback=true')
 
 
 def run_migrations_offline() -> None:
