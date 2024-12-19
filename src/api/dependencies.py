@@ -5,11 +5,15 @@ from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.session import async_database_session_maker
-from repositories import ConfigurationRepository
+from repositories import AddressRepository, ClientRepository, ImagesRepository, ProductRepository, SupplierRepository
 
 
 class IUnitOfWork(ABC):
-    configuration: ConfigurationRepository | None
+    address: AddressRepository | None
+    client: ClientRepository | None
+    images: ImagesRepository | None
+    product: ProductRepository | None
+    supplier: SupplierRepository | None
     db_session: AsyncSession
 
     @abstractmethod
@@ -23,7 +27,11 @@ class IUnitOfWork(ABC):
 
 
 class UnitOfWork:
-    configuration: ConfigurationRepository | None
+    address: AddressRepository | None
+    client: ClientRepository | None
+    images: ImagesRepository | None
+    product: ProductRepository | None
+    supplier: SupplierRepository | None
 
     def __init__(self):
         self.database_session_factory = async_database_session_maker
@@ -35,7 +43,11 @@ class UnitOfWork:
 
     async def __aenter__(self):
         self.db_session = self.database_session_factory()
-        self.configuration = ConfigurationRepository(self.db_session)
+        self.address = AddressRepository(self.db_session)
+        self.client = ClientRepository(self.db_session)
+        self.images = ImagesRepository(self.db_session)
+        self.product = ProductRepository(self.db_session)
+        self.supplier = SupplierRepository(self.db_session)
 
     async def __aexit__(self, exc_type, exc, tb):
         if self.db_session is not None:
