@@ -9,4 +9,4 @@ class ImageRequestSchema(BaseModel):
 
 
 class ImageResponseSchema(BaseModel):
-    image_id: UUID
+    id: UUID

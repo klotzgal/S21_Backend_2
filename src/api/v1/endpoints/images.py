@@ -24,7 +24,7 @@ async def add_image(image: UploadFile, product_id: UUID, uow: UOWDep):
             image=image.file.read(), product_id=product_id
         )
 
-    return ImageResponseSchema(image_id=image_id)
+    return ImageResponseSchema(id=image_id)
 
 
 @images_router.get(
@@ -62,7 +62,7 @@ async def update_image(image_id: UUID, new_image: UploadFile, uow: UOWDep):
             raise HTTPException(status_code=404, detail="Image not found")
         image.image = new_image.file.read()
 
-    return ImageResponseSchema(image_id=image_id)
+    return ImageResponseSchema(id=image_id)
 
 
 @images_router.delete(
