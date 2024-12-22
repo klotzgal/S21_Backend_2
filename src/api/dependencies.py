@@ -5,7 +5,13 @@ from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.session import async_database_session_maker
-from repositories import AddressRepository, ClientRepository, ImagesRepository, ProductRepository, SupplierRepository
+from repositories import (
+    AddressRepository,
+    ClientRepository,
+    ImagesRepository,
+    ProductRepository,
+    SupplierRepository,
+)
 
 
 class IUnitOfWork(ABC):
