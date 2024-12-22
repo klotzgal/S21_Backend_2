@@ -10,7 +10,7 @@ from schemas.product import (
     ProductResponseSchema,
 )
 
-product_router = APIRouter(prefix="/product", tags=["product"])
+product_router = APIRouter(prefix="/products", tags=["products"])
 
 
 @product_router.post(

@@ -2,6 +2,7 @@ from uuid import UUID
 from fastapi import APIRouter, HTTPException, UploadFile
 from api.dependencies import UOWDep
 from models.images import Images
+from models.product import Product
 from schemas.errors import BaseErrorSchema
 from schemas.images import ImageResponseSchema
 from services.image import get_image_bytes
@@ -20,6 +21,10 @@ images_router = APIRouter(prefix="/images", tags=["images"])
 )
 async def add_image(image: UploadFile, product_id: UUID, uow: UOWDep):
     async with uow():
+        product = await uow.product.first(Product.id == product_id)
+        if product is None:
+            raise HTTPException(status_code=404, detail="Product not found")
+
         image_id = await uow.images.create(
             image=image.file.read(), product_id=product_id
         )

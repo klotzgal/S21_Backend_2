@@ -9,7 +9,7 @@ class ProductRequestSchema(BaseModel):
     price: int = Field(ge=0, default=0)
     available_stock: int = Field(ge=0, default=0)
     last_update_date: date = date.today()
-    supplier_id: UUID | None = None
+    supplier_id: UUID
     image_id: UUID | None = None
 
 

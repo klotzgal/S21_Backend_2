@@ -14,5 +14,5 @@ class Product(Base):
     price = Column(Integer, nullable=False)
     available_stock = Column(Integer, nullable=False)
     last_update_date = Column(Date(), nullable=False)
-    supplier_id = Column(UUID(as_uuid=True), ForeignKey("supplier.id"), nullable=True)
+    supplier_id = Column(UUID(as_uuid=True), ForeignKey("supplier.id"), nullable=False)
     image_id = Column(UUID(as_uuid=True), ForeignKey("images.id"), nullable=True)

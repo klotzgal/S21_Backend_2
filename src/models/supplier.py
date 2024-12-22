@@ -10,5 +10,5 @@ class Supplier(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String(100), nullable=False)
-    address_id = Column(UUID(as_uuid=True), ForeignKey("address.id"), nullable=False)
-    phone_number = Column(String(100), nullable=False)
+    address_id = Column(UUID(as_uuid=True), ForeignKey("address.id"), nullable=True)
+    phone_number = Column(String(100), nullable=True)
