@@ -30,7 +30,9 @@ class BaseRepository(AbstractRepository):
         res = await self.db_session.execute(query)
         return res.scalars().first()
 
-    async def first(self, *args, order_by: InstrumentedAttribute = None, for_update: bool = False) -> Type[model]:
+    async def first(
+        self, *args, order_by: InstrumentedAttribute = None, for_update: bool = False
+    ) -> Type[model]:
         query = select(self.model).where(*args)
 
         if order_by is not None:
