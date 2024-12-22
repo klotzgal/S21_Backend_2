@@ -1,4 +1,5 @@
 import uuid
+from datetime import date
 
 from sqlalchemy import UUID, Column, String, Date, ForeignKey
 
@@ -13,5 +14,5 @@ class Client(Base):
     client_surname = Column(String(100), nullable=False)
     birthday = Column(Date(), nullable=False)
     gender = Column(String(100), nullable=False)
-    registration_date = Column(Date(), nullable=False)
+    registration_date = Column(Date(), nullable=False, default=date.today)
     address_id = Column(UUID(as_uuid=True), ForeignKey("address.id"), nullable=True)

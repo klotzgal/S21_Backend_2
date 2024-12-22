@@ -6,6 +6,7 @@ from models.supplier import Supplier
 from schemas.errors import BaseErrorSchema
 from schemas.supplier import SupplerFullResponseSchema, SupplierChangeAddressSchema, SupplierRequestSchema, SupplierResponseSchema
 from services.suppler import create_supplier
+from schemas.address import AddressSchema
 
 supplier_router = APIRouter(prefix="/suppliers", tags=["suppliers"])
 
@@ -71,7 +72,7 @@ async def get_supplier(supplier_id: UUID, uow: UOWDep):
         address = await uow.address.first(Address.id == supplier.address_id)
 
         if address is not None:
-            address = Address(
+            address = AddressSchema(
             id=address.id,
             country=address.country,
             city=address.city,
@@ -103,7 +104,7 @@ async def get_all_supplier(uow: UOWDep):
             address = await uow.address.first(Address.id == supplier.address_id)
 
             if address is not None:
-                address = Address(
+                address = AddressSchema(
                 id=address.id,
                 country=address.country,
                 city=address.city,

@@ -1,12 +1,12 @@
 from uuid import UUID
 from pydantic import BaseModel
 
-from schemas.address import Address
+from schemas.address import AddressSchema
 
 
 class SupplierRequestSchema(BaseModel):
     name: str
-    address: Address | None = None
+    address: AddressSchema | None = None
     phone_number: str | None = None
 
 class SupplierResponseSchema(BaseModel):
@@ -16,4 +16,4 @@ class SupplerFullResponseSchema(SupplierRequestSchema, SupplierResponseSchema):
     pass
 
 class SupplierChangeAddressSchema(BaseModel):
-    address: Address
+    address: AddressSchema

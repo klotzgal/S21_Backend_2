@@ -2,129 +2,136 @@ from uuid import UUID
 from fastapi import APIRouter, HTTPException
 from api.dependencies import UOWDep
 from models.address import Address
-from models.supplier import Supplier
+from models.client import Client
 from schemas.errors import BaseErrorSchema
-from schemas.supplier import SupplerFullResponseSchema, SupplierChangeAddressSchema, SupplierRequestSchema, SupplierResponseSchema
-from services.suppler import create_supplier
+from schemas.client import ClientChangeAddressSchema, ClientFullResponseSchema, ClientRequestSchema, ClientResponseSchema
+from schemas.address import AddressSchema
 
 client_router = APIRouter(prefix="/clients", tags=["clients"])
-
 
 @client_router.post(
     "/",
     status_code=200,
     responses={
-        200: {"model": SupplierResponseSchema},
+        200: {"model": ClientResponseSchema},
         400: {"model": BaseErrorSchema},
         404: {"model": BaseErrorSchema},
     },
 )
-async def add_supplier(supplier: SupplierRequestSchema, uow: UOWDep):
-    supplier_id = await create_supplier(supplier, uow)
-    return SupplierResponseSchema(id=supplier_id)
+async def add_client(client: ClientRequestSchema, uow: UOWDep):
+    async with uow():
+        client_id = await uow.client.create(**client.model_dump())
 
+    return ClientResponseSchema(id=client_id)
 
 @client_router.patch(
-    "/{supplier_id}",
+    "/{client_id}",
     status_code=200,
     responses={
-        200: {"model": SupplerFullResponseSchema},
+        200: {"model": ClientFullResponseSchema},
         400: {"model": BaseErrorSchema},
         404: {"model": BaseErrorSchema},
     },
 )
-async def update_supplier(
-    supplier_id: UUID, data: SupplierChangeAddressSchema, uow: UOWDep
+async def update_client(
+    client_id: UUID, data: ClientChangeAddressSchema, uow: UOWDep
 ):
     async with uow():
-        supplier = await uow.supplier.first(Supplier.id == supplier_id)
-        if supplier is None:
-            raise HTTPException(status_code=404, detail="Supplier not found")
+        client = await uow.client.first(Client.id == client_id)
+        if client is None:
+            raise HTTPException(status_code=404, detail="Client not found")
 
         address_id = await uow.address.create(**data.address.model_dump())
-        supplier.address_id = address_id
+        client.address_id = address_id
         
 
-    return SupplerFullResponseSchema(
-        id=supplier.id,
-        name=supplier.name,
-        address=data.address,
-        phone_number=supplier.phone_number,
-    )
-
+    return ClientFullResponseSchema(
+            id=client.id,
+            client_name=client.client_name,
+            client_surname=client.client_surname,
+            address=data.address,
+            birthday=client.birthday,
+            gender=client.gender,
+            registration_date=client.registration_date
+        )
 
 @client_router.get(
-    "/{supplier_id}",
+    "/{client_id}",
     status_code=200,
     responses={
-        200: {"model": SupplerFullResponseSchema},
+        200: {"model": ClientFullResponseSchema},
         400: {"model": BaseErrorSchema},
         404: {"model": BaseErrorSchema},
     },
 )
-async def get_supplier(supplier_id: UUID, uow: UOWDep):
+async def get_client(client_id: UUID, uow: UOWDep):
     async with uow():
-        supplier = await uow.supplier.first(Supplier.id == supplier_id)
+        client = await uow.client.first(Client.id == client_id)
 
-        if supplier is None:
-            raise HTTPException(status_code=404, detail="Supplier not found")
-        address = await uow.address.first(Address.id == supplier.address_id)
+        if client is None:
+            raise HTTPException(status_code=404, detail="Client not found")
+
+        address = await uow.address.first(Address.id == client.address_id)
 
         if address is not None:
-            address = Address(
+            address = AddressSchema(
             id=address.id,
             country=address.country,
             city=address.city,
             street=address.street,
         )
             
-    return SupplerFullResponseSchema(
-        id=supplier.id,
-        name=supplier.name,
-        address=address,
-        phone_number=supplier.phone_number,
-    )
-
+    return ClientFullResponseSchema(
+            id=client.id,
+            client_name=client.client_name,
+            client_surname=client.client_surname,
+            address=address,
+            birthday=client.birthday,
+            gender=client.gender,
+            registration_date=client.registration_date
+        )
 
 @client_router.get(
     "/",
     status_code=200,
     responses={
-        200: {"model": list[SupplerFullResponseSchema]},
+        200: {"model": list[ClientFullResponseSchema]},
         400: {"model": BaseErrorSchema},
         404: {"model": BaseErrorSchema},
     },
 )
-async def get_all_supplier(uow: UOWDep):
+async def get_all_client(uow: UOWDep):
     async with uow():
-        suppliers = await uow.supplier.all()
+        clients = await uow.client.all()
         
-        for supplier in suppliers:
-            address = await uow.address.first(Address.id == supplier.address_id)
+        for client in clients:
+            address = await uow.address.first(Address.id == client.address_id)
 
             if address is not None:
-                address = Address(
+                address = AddressSchema(
                 id=address.id,
                 country=address.country,
                 city=address.city,
                 street=address.street,
             )
-            supplier.address = address
-        
+            client.address = address
+
 
     return [
-        SupplerFullResponseSchema(
-            id=supplier.id,
-            name=supplier.name,
-            address=supplier.address,
-            phone_number=supplier.phone_number,
+        ClientFullResponseSchema(
+            id=client.id,
+            client_name=client.client_name,
+            client_surname=client.client_surname,
+            address=client.address,
+            birthday=client.birthday,
+            gender=client.gender,
+            registration_date=client.registration_date
         )
-        for supplier in suppliers
+        for client in clients
     ]
 
-
 @client_router.delete(
-    "/{supplier_id}",
+    "/{client_id}",
     status_code=200,
     responses={
         200: {"model": {}},
@@ -132,11 +139,11 @@ async def get_all_supplier(uow: UOWDep):
         404: {"model": BaseErrorSchema},
     },
 )
-async def delete_supplier(supplier_id: UUID, uow: UOWDep):
+async def delete_client(client_id: UUID, uow: UOWDep):
     async with uow():
-        if await uow.supplier.first(Supplier.id == supplier_id) is None:
-            raise HTTPException(status_code=404, detail="Supplier not found")
+        if await uow.client.first(Client.id == client_id) is None:
+            raise HTTPException(status_code=404, detail="Client not found")
 
-        await uow.supplier.delete(Supplier.id == supplier_id)
+        await uow.client.delete(Client.id == client_id)
     return {}
 
