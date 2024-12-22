@@ -6,6 +6,7 @@ from models.client import Client
 from schemas.errors import BaseErrorSchema
 from schemas.client import ClientChangeAddressSchema, ClientFullResponseSchema, ClientRequestSchema, ClientResponseSchema
 from schemas.address import AddressSchema
+from services.client import create_client
 
 client_router = APIRouter(prefix="/clients", tags=["clients"])
 
@@ -19,8 +20,7 @@ client_router = APIRouter(prefix="/clients", tags=["clients"])
     },
 )
 async def add_client(client: ClientRequestSchema, uow: UOWDep):
-    async with uow():
-        client_id = await uow.client.create(**client.model_dump())
+    client_id = await create_client(client, uow)
 
     return ClientResponseSchema(id=client_id)
 
@@ -43,13 +43,20 @@ async def update_client(
 
         address_id = await uow.address.create(**data.address.model_dump())
         client.address_id = address_id
+        address = await uow.address.first(Address.id == client.address_id)
+        address = AddressSchema(
+            id=address.id,
+            country=address.country,
+            city=address.city,
+            street=address.street,
+        )
         
 
     return ClientFullResponseSchema(
             id=client.id,
             client_name=client.client_name,
             client_surname=client.client_surname,
-            address=data.address,
+            address=address,
             birthday=client.birthday,
             gender=client.gender,
             registration_date=client.registration_date

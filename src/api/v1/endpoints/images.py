@@ -1,5 +1,5 @@
 from uuid import UUID
-from fastapi import APIRouter, HTTPException, UploadFile
+from fastapi import APIRouter, HTTPException, Response, UploadFile
 from api.dependencies import UOWDep
 from models.images import Images
 from models.product import Product
@@ -24,10 +24,12 @@ async def add_image(image: UploadFile, product_id: UUID, uow: UOWDep):
         product = await uow.product.first(Product.id == product_id)
         if product is None:
             raise HTTPException(status_code=404, detail="Product not found")
-
+        image.file.seek(0)
+        image_bytes=image.file.read()
         image_id = await uow.images.create(
-            image=image.file.read(), product_id=product_id
+            image=image_bytes
         )
+        product.image_id = image_id
 
     return ImageResponseSchema(id=image_id)
 
@@ -47,7 +49,7 @@ async def get_image(image_id: UUID, uow: UOWDep):
     if image is None:
         raise HTTPException(status_code=404, detail="Image not found")
 
-    return str(image)
+    return Response(content=image, media_type="application/octet-stream")
 
 
 @images_router.put(
@@ -65,7 +67,9 @@ async def update_image(image_id: UUID, new_image: UploadFile, uow: UOWDep):
 
         if image is None:
             raise HTTPException(status_code=404, detail="Image not found")
-        image.image = new_image.file.read()
+        new_image.file.seek(0)
+        image_bytes=new_image.file.read()
+        image.image = image_bytes
 
     return ImageResponseSchema(id=image_id)
 
@@ -100,8 +104,12 @@ async def delete_image(image_id: UUID, uow: UOWDep):
 )
 async def get_image_by_product_id(product_id: UUID, uow: UOWDep):
     async with uow():
-        image = await uow.images.first(Images.product_id == product_id)
+        product = await uow.product.first(Product.id == product_id)
+        if product is None:
+            raise HTTPException(status_code=404, detail="Product not found")
+
+        image = await uow.images.first(Images.id == product.image_id)
 
     if image is None:
         raise HTTPException(status_code=404, detail="Image not found")
-    return str(image.image)
+    return Response(content=image.image, media_type="application/octet-stream")

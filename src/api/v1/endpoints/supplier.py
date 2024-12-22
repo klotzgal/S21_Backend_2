@@ -44,12 +44,18 @@ async def update_supplier(
 
         address_id = await uow.address.create(**data.address.model_dump())
         supplier.address_id = address_id
-        
+        address = await uow.address.first(Address.id == supplier.address_id)
+        address = AddressSchema(
+            id=address.id,
+            country=address.country,
+            city=address.city,
+            street=address.street,
+        )
 
     return SupplerFullResponseSchema(
         id=supplier.id,
         name=supplier.name,
-        address=data.address,
+        address=address,
         phone_number=supplier.phone_number,
     )
 

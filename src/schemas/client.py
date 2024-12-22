@@ -2,7 +2,7 @@ from datetime import date
 from uuid import UUID
 from pydantic import BaseModel
 
-from schemas.address import AddressSchema
+from schemas.address import AddressSchema, BaseAddressSchema
 
 
 class ClientRequestSchema(BaseModel):
@@ -11,14 +11,19 @@ class ClientRequestSchema(BaseModel):
     birthday: date
     gender: str
     registration_date: date = date.today()
-    address: AddressSchema | None = None
+    address_id: UUID | None = None
 
 
 class ClientResponseSchema(BaseModel):
     id: UUID
 
-class ClientFullResponseSchema(ClientRequestSchema, ClientResponseSchema):
-    pass
+class ClientFullResponseSchema(ClientResponseSchema):
+    client_name: str
+    client_surname: str
+    birthday: date
+    gender: str
+    registration_date: date = date.today()
+    address: AddressSchema | None = None
 
 class ClientChangeAddressSchema(BaseModel):
-    address: AddressSchema
+    address: BaseAddressSchema

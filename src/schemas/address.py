@@ -1,7 +1,12 @@
 from pydantic import BaseModel
+from uuid import UUID
 
 
-class AddressSchema(BaseModel):
+class BaseAddressSchema(BaseModel):
     country: str
     city: str
     street: str
+
+class AddressSchema(BaseAddressSchema):
+    id: UUID
+
