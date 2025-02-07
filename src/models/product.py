@@ -15,4 +15,4 @@ class Product(Base):
     available_stock = Column(Integer, nullable=False)
     last_update_date = Column(Date(), nullable=False)
     supplier_id = Column(UUID(as_uuid=True), ForeignKey("supplier.id"), nullable=False)
-    image_id = Column(UUID(as_uuid=True), ForeignKey("images.id"), nullable=True)
+    image_id = Column(UUID(as_uuid=True), ForeignKey("images.id", ondelete="CASCADE"), nullable=True)
